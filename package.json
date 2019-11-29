@@ -1,0 +1,30 @@
+
+{
+  "name": "react-native-pytorch",
+  "version": "0.0.1",
+  "description": "Using pytorch model in react native",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viuts/react-native-pytorch"
+  },
+  "homepage": "https://github.com/viuts/react-native-pytorch",
+  "keywords": [
+    "react-native"
+  ],
+  "author": "",
+  "contributors": [
+    {
+      "name": "Allen Ng",
+      "email": "allen.ng@pickupp.io"
+    }
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "react-native": "^0.41.2"
+  },
+  "podName": "react-native-pytorch"
+}
