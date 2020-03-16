@@ -21,6 +21,7 @@ class RNPytorch: NSObject {
       } else {
           throw NSError(domain: "", code:401, userInfo: nil)
       }
+      resolve(nil)
     } catch {
       reject("", "Error during loadModel", error)
     }
@@ -29,26 +30,26 @@ class RNPytorch: NSObject {
   @objc(predict:resolver:rejecter:)
   func predict(imagePath: String, resolve: RCTPromiseResolveBlock,  reject: RCTPromiseRejectBlock) -> Void {
     do {
-    let url = NSURL(string: imagePath)
-    let data = NSData(contentsOf: url! as URL)
+      let url = NSURL(string: imagePath)
+      let data = NSData(contentsOf: url! as URL)
 
-    let image = UIImage(data: data! as Data)
-    let resizedImage = image!.resized(to: CGSize(width: 224, height: 224))
-    guard var pixelBuffer = resizedImage.normalized() else {
-        throw NSError(domain: "", code:401, userInfo: nil)
-    }
-    guard let outputs = self.model!.predict(image: UnsafeMutableRawPointer(&pixelBuffer)) else {
-        throw NSError(domain: "", code:401, userInfo: nil)
-    }
-    let zippedResults = zip(self.labels!.indices, outputs)
-    let sortedResults = zippedResults.sorted { $0.1.floatValue > $1.1.floatValue }
-    var results = [[String: Any]]()
+      let image = UIImage(data: data! as Data)
+      let resizedImage = image!.resized(to: CGSize(width: 224, height: 224))
+      guard var pixelBuffer = resizedImage.normalized() else {
+          throw NSError(domain: "", code:401, userInfo: nil)
+      }
+      guard let outputs = self.model!.predict(image: UnsafeMutableRawPointer(&pixelBuffer)) else {
+          throw NSError(domain: "", code:401, userInfo: nil)
+      }
+      let zippedResults = zip(self.labels!.indices, outputs)
+      let sortedResults = zippedResults.sorted { $0.1.floatValue > $1.1.floatValue }
+      var results = [[String: Any]]()
 
-    for result in sortedResults {
-        let row = ["label": self.labels![result.0], "confidence": result.1.floatValue] as [String: Any]
-        results.append(row)
-    }
-    resolve(results)
+      for result in sortedResults {
+          let row = ["label": self.labels![result.0], "confidence": result.1.floatValue] as [String: Any]
+          results.append(row)
+      }
+      resolve(results)
     } catch {
         reject("", "Error during prediction", error)
     }
