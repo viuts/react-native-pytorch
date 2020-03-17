@@ -37,20 +37,10 @@ android {
 
 repositories {
     jcenter()
-    // flatDir {
-    //     dirs "$rootProject.projectDir/../node_modules/react-native-pytorch/android/libs"
-    // }
 }
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    // implementation 'org.pytorch:pytorch_android:1.4.0', {
-    //     exclude group:'pytorch_android_fbjni', module: 'jni'
-    // }
-    // implementation 'org.pytorch:pytorch_android_torchvision:1.4.0'
-    // implementation(name:'pytorch_android', ext:'aar')
-    // implementation(name:'pytorch_android_torchvision', ext:'aar')
-    // implementation(name:'pytorch_android_fbjni', ext:'aar')
     implementation 'io.pickupp:pytorch_android:1.5.0'
     implementation 'io.pickupp:pytorch_android_torchvision:1.5.0'
     implementation 'io.pickupp:pytorch_android_fbjni:1.5.0'
